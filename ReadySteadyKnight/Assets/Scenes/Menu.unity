@@ -393,7 +393,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b05e3616f2a258647807d35f4920527a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -595,7 +595,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1c7e549b098a0d146bd505944ee2ba36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -677,7 +677,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 10887984848c3b84d9a72f9f8d903d4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -874,7 +874,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 10887984848c3b84d9a72f9f8d903d4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -918,7 +918,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camObj: {fileID: 1654127933}
   parallaxEffect: 0.3
-  speed: 0
 --- !u!212 &498768097
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1388,7 +1387,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camObj: {fileID: 1654127933}
   parallaxEffect: 0.7
-  speed: 0
 --- !u!212 &1037754909
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1646,7 +1644,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b05e3616f2a258647807d35f4920527a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1728,7 +1726,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 57c58466ee36d304ba571cb46a833e85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2231,7 +2229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camObj: {fileID: 1654127933}
   parallaxEffect: 0
-  speed: 0
 --- !u!212 &1718122749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2369,7 +2366,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1c7e549b098a0d146bd505944ee2ba36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2533,7 +2530,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 57c58466ee36d304ba571cb46a833e85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2577,7 +2574,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camObj: {fileID: 1654127933}
   parallaxEffect: 0.5
-  speed: 0
 --- !u!212 &2020030498
 SpriteRenderer:
   m_ObjectHideFlags: 0
