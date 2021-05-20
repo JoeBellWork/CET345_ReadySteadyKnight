@@ -4,15 +4,13 @@
     {
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _ColorStrength("Color Strength", Range(1,4)) = 1
+        _ColorStrength("Color Strength", Range(1,6)) = 1
         _EmissionColor("Emission Color", Color) = (1,1,1,1)
         _EmissionMainTex("Emission Albedo (RGB)", 2D) = "white" {}
         _EmissionColorStrength("Emission Color Strength", Range(0,4)) = 1
         _Glossiness("Smoothness", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0.0
-        //_Position("World Position", Vector) = (0,0,0,0)
-        //_Radius("Sphere Radius", Range(0,100)) = 0
-        //_Softness("Sphere Softness", Range(0,100)) = 0
+           
     }
     SubShader
     {

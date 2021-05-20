@@ -22,6 +22,12 @@ public class CameraManager : MonoBehaviour
     Camera cam;
     public CameraType cType;
 
+    [Space(30)]
+    public Transform target;
+    Vector3 trackPosition, smooth;
+
+    public float radius, softness, smoothSpeed, scale;
+
     public enum CameraType
     { 
         ortho,
@@ -73,6 +79,19 @@ public class CameraManager : MonoBehaviour
                 break;
         }
         cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, middlePoint, Time.deltaTime * 5);
+
+
+
+
+
+
+
+        trackPosition = new Vector3(target.position.x, target.position.y, target.position.z);
+        smooth = Vector3.MoveTowards(smooth, trackPosition,smoothSpeed * Time.deltaTime);
+        Vector4 pos = new Vector4(smooth.x, smooth.y, 0, 0);
+        Shader.SetGlobalVector("GlobalSpotlight_Position", pos);
+        
+
     }
 
     public static CameraManager instance;

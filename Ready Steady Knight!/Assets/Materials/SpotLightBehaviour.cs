@@ -20,28 +20,6 @@ public class SpotLightBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
-        {
-            radius += scale * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            radius -= scale * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            softness -= scale * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            softness += scale * Time.deltaTime;
-        }
-
-        Mathf.Clamp(radius, 0, 100);
-        Mathf.Clamp(softness, 0, 100);
-
         trackPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
         ray = cam.ScreenPointToRay(trackPosition);
 
@@ -51,7 +29,6 @@ public class SpotLightBehaviour : MonoBehaviour
             Vector4 pos = new Vector4(smooth.x, smooth.y, smooth.z, 0);
             Shader.SetGlobalVector("GlobalSpotlight_Position", pos);
         }
-        Shader.SetGlobalFloat("GlobalSpotlight_Radius", radius);
-        Shader.SetGlobalFloat("GlobalSpotlight_Softness", softness);
+        
     }
 }
