@@ -20,6 +20,7 @@ public class InputHandler : MonoBehaviour
 
     void FixedUpdate()
     {
+        // attack input controls from state manager, used by handle movment + handle animation, for fighter controls and animation
         horizontal = Input.GetAxis("Horizontal" + playerInput);
         vertical = Input.GetAxis("Vertical" + playerInput);
         attack1 = Input.GetButton("Fire1" + playerInput);

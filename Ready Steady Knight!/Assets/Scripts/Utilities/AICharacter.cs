@@ -1,15 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AICharacter : MonoBehaviour
 {
+    // full AI behaviour
+    // list of varibles that control audio, animation, access state manager to replicate input.
     private AudioManagerScript audioManager;
-    #region varibles
     StateManager states;
     public StateManager enStates;
     public float changeStateTolerance = 3;
 
+    // floats and timers for opening and closing behaviour/ animation
     public float normalRate = 1;
     float nrmTimer;
 
@@ -33,7 +34,6 @@ public class AICharacter : MonoBehaviour
     float jRate;
     bool jump;
     float jTimer;
-    #endregion
 
     public AttackPatterns[] attackPatterns;
 
@@ -202,6 +202,7 @@ public class AICharacter : MonoBehaviour
 
     void Jumping()
     {
+        // controls the percentage change of the AI jumping as well as attacking mid jump
         if(!enStates.onGround)
         {
             float r = ReturnRandom();
@@ -247,6 +248,7 @@ public class AICharacter : MonoBehaviour
 
     void ResetAI()
     {
+        // reset AI conditionals to recieve new direction and orders
         aidTimer += Time.deltaTime;
         if(aidTimer > aiStateLife)
         {
@@ -273,6 +275,7 @@ public class AICharacter : MonoBehaviour
 
     IEnumerator OpenAttack(AttackPatterns a, int i)
     {
+        // ienumerator which counts delay and attack given to output attack type for AI as well as combo counter and hen they can attack
         int index = i;
         float delay = a.attacks[index].delay;
         states.attack1 = a.attacks[index].attack1;
@@ -297,6 +300,7 @@ public class AICharacter : MonoBehaviour
 
     void CloseState()
     {
+        // set close state at end of moment, used to trigger new AI behaviour with initiate AI bool
         clTimer += Time.deltaTime;
         if(clTimer > closeRate)
         {
@@ -307,6 +311,7 @@ public class AICharacter : MonoBehaviour
 
     void NormalState()
     {
+        // set normal state at start, used to trigger new AI behaviour with initiate AI bool
         nrmTimer += Time.deltaTime;
         if (nrmTimer > normalRate)
         {
@@ -318,12 +323,14 @@ public class AICharacter : MonoBehaviour
     [System.Serializable]
     public class AttackPatterns
     {
+        // attack pattern array for combo move which allows kicking while on the ground
         public AttackBase[] attacks;
     }
 
     [System.Serializable]
     public class AttackBase
     {
+        // inherited class for attack styles and delay time
         public bool attack1;
         public bool attack2;
         public float delay;

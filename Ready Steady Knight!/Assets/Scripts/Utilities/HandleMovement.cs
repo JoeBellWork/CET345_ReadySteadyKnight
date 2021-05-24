@@ -29,6 +29,7 @@ public class HandleMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // continous checks for input
         if(!states.dontMove)
         {
             HorizontalMovement();
@@ -38,6 +39,7 @@ public class HandleMovement : MonoBehaviour
 
     void HorizontalMovement()
     {
+        // function allows movement back and forth while not attacking
         actualSpeed = this.maxSpeed;
 
         if(states.onGround && !states.currentlyAttacking)
@@ -53,6 +55,7 @@ public class HandleMovement : MonoBehaviour
 
     void Jump()
     {
+        // jump script that checks if the player wishes to jump, if they can jump and controls velocity and direction
         if(states.vertical > 0)
         {            
             if (!justJumped)
@@ -88,11 +91,13 @@ public class HandleMovement : MonoBehaviour
 
     public void AddVelocityOnCharacter(Vector3 direction, float timer)
     {
+        // adds force to character accessing the IEnumerator
         StartCoroutine(AddVelocity(timer, direction));
     }
 
     IEnumerator AddVelocity(float timer, Vector3 direction)
     {
+        // generate velocity on impact to push player away from heavy kick or to add jump force
         float t = 0;
         while(t < timer)
         {

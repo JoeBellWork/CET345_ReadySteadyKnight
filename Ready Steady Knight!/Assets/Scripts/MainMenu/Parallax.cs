@@ -8,13 +8,15 @@ public class Parallax : MonoBehaviour
     private float mapLength, startPos, distance, temp;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         startPos = transform.position.x;
         mapLength = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
+    // continously moves the parralax background with using the parallaxEffect float amount. This makes different layers move faster and slower than others.
+    //if the background leaves frame, moves to the other side of the grouping so it creates and endlss loop.
     private void FixedUpdate()
     {
         temp = camObj.transform.position.x * (1 - parallaxEffect);

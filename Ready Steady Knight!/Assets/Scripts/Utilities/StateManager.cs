@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
+    // fighter varibles from health, input controls through bool switches, heigt tracker and direction facing.
     public int health = 100;
     public float horizontal;
     public float vertical;
@@ -19,9 +20,12 @@ public class StateManager : MonoBehaviour
     public bool onGround;
     public bool lookRight;
 
+    // control health slider
     public Slider healthSlider;
     SpriteRenderer sRenderer;
 
+
+    //access other scripts for collider manipulation and animations
     [HideInInspector]
     public HandleDamageColliders handleDC;
     [HideInInspector]
@@ -34,12 +38,14 @@ public class StateManager : MonoBehaviour
 
     public void Start()
     {
+        // get other scripts
         handleDC = GetComponent<HandleDamageColliders>();
         handleAnim = GetComponent<HandleAnimations>();
         handleMovement = GetComponent<HandleMovement>();
         sRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
+    
     public void FixedUpdate()
     {
         sRenderer.flipX = lookRight;
@@ -62,6 +68,7 @@ public class StateManager : MonoBehaviour
 
     public bool isOnGround()
     {
+        // bool check using ray cast to check for layer of ground
         bool retVal = false;
         LayerMask layer = ~(1 << gameObject.layer | 1 << 3);
         retVal = Physics2D.Raycast(transform.position, -Vector2.up, 0.1f, layer);
@@ -70,6 +77,7 @@ public class StateManager : MonoBehaviour
 
     public void ResetStateInputs()
     {
+        // used after a fight round to reset health, position and logic
         horizontal = 0;
         vertical = 0;
         attack1 = false;
@@ -81,16 +89,19 @@ public class StateManager : MonoBehaviour
         dontMove = false;
     }
 
+    // close movement colliders to allow jumping and crouching
     public void CloseMovementCollider(int index)
     {
         movementColliders[index].SetActive(false);
     }
 
+    // close movement colliders to allow jumping and crouching
     public void OpenMovementCollider(int index)
     {
         movementColliders[index].SetActive(true);
     }
 
+    // damage function called by other scripts that registers damage typ for force knock back, ammount of damage taken and imortality.
     public void TakeDamage(int damage, HandleDamageColliders.DamageType damageType)
     {
         if(!gettingHit)

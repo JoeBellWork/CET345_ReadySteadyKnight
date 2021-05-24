@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    // controls the functional logic of the fight level
     WaitForSeconds oneSec;
     public Transform[] spawnPosition;
     CameraManager camM;
@@ -16,6 +17,8 @@ public class LevelManager : MonoBehaviour
     int currentTimer;
     float internalTimer;
 
+
+    // instance control
     public static LevelManager instance;
     public static LevelManager getInstance()
     {
@@ -24,6 +27,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        // collect and get external scripts to game object.
         charM = CharacterManager.getInstance();
         camM = CameraManager.GetInstance();
         levelUi = LevelUi.GetInstance();
@@ -49,7 +53,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     public void Update()
-    {
+    {        
         if(countdown)
         {
             HandleTurnTimer();
@@ -57,6 +61,7 @@ public class LevelManager : MonoBehaviour
     }
     void HandleTurnTimer()
     {
+        // countdown until fight is over
         levelUi.LevelTimer.text = currentTimer.ToString();
         internalTimer += Time.deltaTime;
 
@@ -73,13 +78,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
+    // run functions to start game, create player states and ensure logic is functionaing as expected.
     IEnumerator StartGame()
     {
         yield return CreatePlayers();
         yield return InitTurn();
     }
 
+    // generate fighters with prefabs based on fighter selected as well as provide states
     IEnumerator CreatePlayers()
     {
         for (int i = 0; i < charM.players.Count; i++)
@@ -93,6 +99,7 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator InitTurn()
     {
+        // reset details for start of round
         levelUi.AnnouncerTextLine1.gameObject.SetActive(false);
         levelUi.AnnouncerTextLine2.gameObject.SetActive(false);
         currentTimer = maxTurnTimer;
@@ -102,6 +109,7 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator InitPlayers()
     {
+        // reset stats for players
         for (int i = 0; i < charM.players.Count; i++)
         {
             charM.players[i].playerStates.health = 100;
@@ -110,6 +118,8 @@ public class LevelManager : MonoBehaviour
         }
         yield return null;
     }
+
+    // enables user to provide input after fight countdown.
     IEnumerator EnableControl()
     {
         levelUi.AnnouncerTextLine1.gameObject.SetActive(true);
@@ -168,6 +178,10 @@ public class LevelManager : MonoBehaviour
             {
                 charM.players[i].playerStates.GetComponent<InputHandler>().enabled = false;
             }
+            else
+            {
+                charM.players[i].playerStates.GetComponent<AICharacter>().enabled = false;
+            }
         }
     }
 
@@ -195,6 +209,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator EndTurn()
     {
+        // run end turn Ienumerator to begin the clean up cycle of a turn, disvoering which round it is, who won and what to do next.
         yield return oneSec;
         yield return oneSec;
         yield return oneSec;
@@ -231,7 +246,7 @@ public class LevelManager : MonoBehaviour
         bool matchOver = isMatchOver();
         if(!matchOver)
         {
-            StartCoroutine("InitTurn");
+            StartCoroutine(InitTurn());
         }
         else
         {
@@ -241,6 +256,8 @@ public class LevelManager : MonoBehaviour
                 charM.players[i].hasCharacter = false;
             }
 
+
+            // returns use to a scene depending on 1 player or 2 and won. If 2 player, returns to intro scene and resents character managers.
             if(charM.solo)
             {
                 if(vPlayer == charM.players[0])
@@ -255,12 +272,19 @@ public class LevelManager : MonoBehaviour
             else
             {
                 MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "intro");
+                charM.players[1].playerType = PlayerBase.PlayerType.ai;
+                charM.players[1].playerPrefab = null;
+                charM.players[1].playerStates = null;
+                charM.players[0].playerPrefab = null;
+                charM.players[0].playerStates = null;
+
             }
         }
     }
 
     bool isMatchOver()
     {
+        // checks to see if score (function below) is higher than the score limit of 2
         bool retVal = false;
 
         for (int i = 0; i < charM.players.Count; i++)
@@ -276,6 +300,7 @@ public class LevelManager : MonoBehaviour
 
     PlayerBase FindWinningPlayer()
     {
+        // discover at the end of a level which fighter won, adds to win count and first to 2 wins is the victor.
         PlayerBase retVal = null;
         StateManager targetPlayer = null;
 
@@ -300,6 +325,7 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
+        // create instance to allow access to other scripts
         instance = this;
     }
 }

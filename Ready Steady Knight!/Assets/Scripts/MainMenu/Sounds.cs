@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class Sounds //Sounds class that holds varible inforamtion for sound clips. Used by audio manager for creating new sound clips.
+public class Sounds //Sounds class that holds varible inforamtion for sound clips. Used by audio manager for creating new sound clips. Is inherited by AudioManagerScript
 {
     public string name;
     public AudioClip clip;

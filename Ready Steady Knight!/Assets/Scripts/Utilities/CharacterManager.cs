@@ -52,6 +52,7 @@ public class CharacterManager : MonoBehaviour
 
     public PlayerBase ReturnOppositePlayer(PlayerBase pl)
     {
+        // find opposite fighter
         PlayerBase retVal = null;
         for (int i = 0; i < players.Count; i++)
         {
@@ -64,15 +65,9 @@ public class CharacterManager : MonoBehaviour
         return retVal;
     }
 
-
-    public static CharacterManager instance;
-    public static CharacterManager getInstance()
-    {
-        return instance;
-    }
-
     public int ReturnCharacterInt(GameObject prefab)
     {
+        // function that returns character int for prefab in list
         int retVal = 0;
         for (int i = 0; i < characterList.Count; i++)
         {
@@ -85,7 +80,12 @@ public class CharacterManager : MonoBehaviour
         return retVal;
     }
 
-
+    // set static
+    public static CharacterManager instance;
+    public static CharacterManager getInstance()
+    {
+        return instance;
+    }
     void Awake()
     {
         instance = this;
@@ -95,6 +95,7 @@ public class CharacterManager : MonoBehaviour
 [System.Serializable]
 public class CharacterBase
 {
+    // fighter details
     public string charId;
     public GameObject prefab;
 }
@@ -102,6 +103,7 @@ public class CharacterBase
 [System.Serializable]
 public class PlayerBase
 {
+    // base stats and varibles for assigning a fighter toa  character
     public string playerId;
     public string inputId;
     public PlayerType playerType;
@@ -110,11 +112,10 @@ public class PlayerBase
     public StateManager playerStates;
     public int score;
 
-    public enum PlayerType
+    public enum PlayerType // enum varible to assign player type for input and behaviour
     {
         user, //human
         ai, //computer
-        simulation //potential for multiplayer network ...TODO....
     }
 }
 

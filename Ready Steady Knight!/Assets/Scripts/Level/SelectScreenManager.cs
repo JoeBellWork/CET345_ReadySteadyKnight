@@ -20,7 +20,7 @@ public class SelectScreenManager : MonoBehaviour
     public AudioManagerScript audioManager;
     private int i;
 
-    #region Singleton
+    // same instance getting scripts
     public static SelectScreenManager instance;
     public static SelectScreenManager getInstance()
     {
@@ -30,7 +30,7 @@ public class SelectScreenManager : MonoBehaviour
     {
         instance = this;
     }
-    #endregion
+    
 
     void Start()
     {
@@ -71,12 +71,13 @@ public class SelectScreenManager : MonoBehaviour
     {
         if(!loadLevel)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)) // leave game with escape button
             {
                 audioManager.soundPlay("Effect_GameOver");
                 StartCoroutine(QuitGame());
             }
 
+            // allow users to select their fighter using a grouping system
             for (int i = 0; i < plInterfaces.Count; i++)
             {
                 if(i < numberOfPlayers)
@@ -203,6 +204,8 @@ public class SelectScreenManager : MonoBehaviour
         }
         yield return new WaitForSeconds(2);
 
+
+        // system to randomise between level 1 and 2 for fight level.
         i = Random.Range(0, 2);
         if(i == 1)
         {
@@ -232,6 +235,8 @@ public class SelectScreenManager : MonoBehaviour
         pl.selector.transform.localPosition = selectorPosition;
     }
 
+
+    // function for setting which fighter object is instanciated into scene to display selected fighter
     void HandleCharacterPreview(PlayerInterfaces pl)
     {
         if(pl.previewPotrait != pl.activePotrait)

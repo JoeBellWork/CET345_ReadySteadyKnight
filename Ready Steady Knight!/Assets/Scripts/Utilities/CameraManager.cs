@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+   // varibles for camera and position
     public Transform cameraHolder;
     public List<Transform> players = new List<Transform>();
-
-    Transform p1;
-    Transform p2;
-
     Vector3 middlePoint;
 
+    // orthographic camera limits
     public float orthoMin = 2;
     public float orthoMax = 6;
 
+    // perspective camera target and limits
     float targetZ;
     public float zMin = 5;
     public float zMax = 10;
@@ -23,6 +22,7 @@ public class CameraManager : MonoBehaviour
     public CameraType cType;
 
     [Space(30)]
+    // spotlight shader varibles
     public Transform target;
     Vector3 trackPosition, smooth;
 
@@ -36,13 +36,19 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+        // access camera and then determin what style of camera is being used.
         cam = Camera.main;
         cameraHolder = cam.transform.parent;
         cType = (cam.orthographic) ? CameraType.ortho : CameraType.perspective;
+
+        // shader varibles for bluring of spotlight
+        Shader.SetGlobalFloat("GlobalSpotlight_Radius", radius);
+        Shader.SetGlobalFloat("GlobalSpotlight_Softness", softness);
     }
 
     void FixedUpdate()
     {
+        // track midpoint between 2 players for spotlight position and camera position
         float distance = Vector3.Distance(players[0].position, players[1].position);
         float half = (distance / 2);
 
@@ -80,20 +86,15 @@ public class CameraManager : MonoBehaviour
         }
         cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, middlePoint, Time.deltaTime * 5);
 
-
-
-
-
-
-
+        // add shader controls to camera manager of levels to allow spotlight to appear on  tilemap.
         trackPosition = new Vector3(target.position.x, target.position.y, target.position.z);
         smooth = Vector3.MoveTowards(smooth, trackPosition,smoothSpeed * Time.deltaTime);
         Vector4 pos = new Vector4(smooth.x, smooth.y, 0, 0);
         Shader.SetGlobalVector("GlobalSpotlight_Position", pos);
-        
-
     }
 
+
+    // static control
     public static CameraManager instance;
     public static CameraManager GetInstance()
     {

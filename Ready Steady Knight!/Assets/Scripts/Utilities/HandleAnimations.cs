@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HandleAnimations : MonoBehaviour
 {
+    // script used alongside input handler and state manager to set animations based off a collection of bool switches.
+    // sets animations in fixed update based on input provided and shared from otehr scripts
     public Animator anim;
     StateManager states;
 

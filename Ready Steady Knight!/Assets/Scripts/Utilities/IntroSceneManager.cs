@@ -101,6 +101,7 @@ public class IntroSceneManager : MonoBehaviour
         }
     }
 
+    // game mode to determin if second fighter is ai or second player input
     void HandleSelectionOption()
     {
         switch(activeElement)
@@ -115,6 +116,7 @@ public class IntroSceneManager : MonoBehaviour
         }
     }
 
+    // loads level after character manager is set for fighter selection
     IEnumerator LoadLevel()
     {
         HandleSelectionOption();
