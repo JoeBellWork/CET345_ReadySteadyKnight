@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class OpenDamageCollider : StateMachineBehaviour
 {
@@ -13,7 +11,7 @@ public class OpenDamageCollider : StateMachineBehaviour
     // on state enter allows behaviour changes to animations and collider controls
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(states == null)
+        if (states == null)
         {
             states = animator.transform.GetComponentInParent<StateManager>();
         }

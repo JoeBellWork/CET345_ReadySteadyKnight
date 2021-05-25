@@ -78,27 +78,27 @@ public class AICharacter : MonoBehaviour
 
     void AIAgent()
     {
-        if(initiateAI)
+        if (initiateAI)
         {
             aiState = AIState.resetAI;
             float multiplier = 0;
 
-            if(!gotRandom)
+            if (!gotRandom)
             {
                 storeRandom = ReturnRandom();
                 gotRandom = true;
             }
 
-            if(!closeCombat)
+            if (!closeCombat)
             {
                 multiplier += 30;
             }
             else
             {
-                multiplier -= 30;
+                multiplier -= 50;
             }
 
-            if(storeRandom + multiplier < 50)
+            if (storeRandom + multiplier < 50)
             {
                 Attack();
             }
@@ -112,9 +112,9 @@ public class AICharacter : MonoBehaviour
     void CheckDistance()
     {
         float distance = Vector3.Distance(transform.position, enStates.transform.position);
-        if(distance < changeStateTolerance)
+        if (distance < changeStateTolerance)
         {
-            if(aiState != AIState.resetAI)
+            if (aiState != AIState.resetAI)
             {
                 aiState = AIState.closeState;
             }
@@ -122,20 +122,20 @@ public class AICharacter : MonoBehaviour
         }
         else
         {
-            if(aiState != AIState.resetAI)
+            if (aiState != AIState.resetAI)
             {
                 aiState = AIState.normalState;
             }
 
-            if(closeCombat)
+            if (closeCombat)
             {
-                if(!gotRandom)
+                if (!gotRandom)
                 {
                     storeRandom = ReturnRandom();
                     gotRandom = true;
                 }
 
-                if(storeRandom < 60)
+                if (storeRandom < 90)
                 {
                     Movement();
                 }
@@ -147,13 +147,13 @@ public class AICharacter : MonoBehaviour
 
     void Attack()
     {
-        if(!gotRandom)
+        if (!gotRandom)
         {
             storeRandom = ReturnRandom();
             gotRandom = true;
         }
 
-        if(!randomizeAttacks)
+        if (!randomizeAttacks)
         {
             numberOfAttacks = (int)Random.Range(1, 4);
             randomizeAttacks = true;
@@ -162,7 +162,7 @@ public class AICharacter : MonoBehaviour
         if (curNumberAttacks < numberOfAttacks)
         {
             int attackNumber = Random.Range(0, attackPatterns.Length);
-            StartCoroutine(OpenAttack(attackPatterns[attackNumber],0));
+            StartCoroutine(OpenAttack(attackPatterns[attackNumber], 0));
             curNumberAttacks++;
         }
 
@@ -170,17 +170,17 @@ public class AICharacter : MonoBehaviour
 
     void Movement()
     {
-        if(!gotRandom)
+        if (!gotRandom)
         {
             storeRandom = ReturnRandom(); //use randomiser to see probability of moving towards player
             gotRandom = true;
         }
 
-        if(storeRandom < 90) //90% chance using Return random function to move towards player
+        if (storeRandom < 90) //90% chance using Return random function to move towards player
         {
-            if(enStates.transform.position.x < transform.position.x)
+            if (enStates.transform.position.x < transform.position.x)
             {
-                states.horizontal = - 1;
+                states.horizontal = -1;
             }
             else
             {
@@ -189,7 +189,7 @@ public class AICharacter : MonoBehaviour
         }
         else // or 10 % to move away from player
         {
-            if(enStates.transform.position.x < transform.position.x)
+            if (enStates.transform.position.x < transform.position.x)
             {
                 states.horizontal = 1;
             }
@@ -203,10 +203,10 @@ public class AICharacter : MonoBehaviour
     void Jumping()
     {
         // controls the percentage change of the AI jumping as well as attacking mid jump
-        if(!enStates.onGround)
+        if (!enStates.onGround)
         {
             float r = ReturnRandom();
-            if(r < 50)
+            if (r < 50)
             {
                 jump = true;
             }
@@ -218,7 +218,7 @@ public class AICharacter : MonoBehaviour
 
 
 
-        if(jump)
+        if (jump)
         {
             audioManager.soundPlay("Effect_Jump");
             states.vertical = 1;
@@ -232,9 +232,9 @@ public class AICharacter : MonoBehaviour
 
         jTimer += Time.deltaTime;
 
-        if(jTimer > JumpRate * 10)
-        {            
-            if(jRate < 50)
+        if (jTimer > JumpRate * 10)
+        {
+            if (jRate < 50)
             {
                 jump = true;
             }
@@ -250,7 +250,7 @@ public class AICharacter : MonoBehaviour
     {
         // reset AI conditionals to recieve new direction and orders
         aidTimer += Time.deltaTime;
-        if(aidTimer > aiStateLife)
+        if (aidTimer > aiStateLife)
         {
             initiateAI = false;
             states.horizontal = 0;
@@ -260,7 +260,7 @@ public class AICharacter : MonoBehaviour
             gotRandom = false;
             // switch state from normal to close
             storeRandom = ReturnRandom();
-            if(storeRandom < 50)
+            if (storeRandom < 50)
             {
                 aiState = AIState.normalState;
             }
@@ -285,7 +285,7 @@ public class AICharacter : MonoBehaviour
         states.attack1 = false;
         states.attack2 = false;
 
-        if(index < a.attacks.Length - 1)
+        if (index < a.attacks.Length - 1)
         {
             index++;
             StartCoroutine(OpenAttack(a, index));
@@ -302,7 +302,7 @@ public class AICharacter : MonoBehaviour
     {
         // set close state at end of moment, used to trigger new AI behaviour with initiate AI bool
         clTimer += Time.deltaTime;
-        if(clTimer > closeRate)
+        if (clTimer > closeRate)
         {
             clTimer = 0;
             initiateAI = true;

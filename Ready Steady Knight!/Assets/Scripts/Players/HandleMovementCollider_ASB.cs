@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandleMovementCollider_ASB : StateMachineBehaviour
 {
@@ -10,7 +8,7 @@ public class HandleMovementCollider_ASB : StateMachineBehaviour
     // state enter allows state behaviour changes on enter
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(states == null)
+        if (states == null)
         {
             states = animator.transform.GetComponentInParent<StateManager>();
         }
@@ -20,7 +18,7 @@ public class HandleMovementCollider_ASB : StateMachineBehaviour
     // statee exit allows state behaviour changes on exit
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(states == null)
+        if (states == null)
         {
             states = animator.transform.GetComponentInParent<StateManager>();
         }

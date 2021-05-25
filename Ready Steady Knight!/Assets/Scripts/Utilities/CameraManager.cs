@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-   // varibles for camera and position
+    // varibles for camera and position
     public Transform cameraHolder;
     public List<Transform> players = new List<Transform>();
     Vector3 middlePoint;
@@ -29,7 +28,7 @@ public class CameraManager : MonoBehaviour
     public float radius, softness, smoothSpeed, scale;
 
     public enum CameraType
-    { 
+    {
         ortho,
         perspective
     }
@@ -59,12 +58,12 @@ public class CameraManager : MonoBehaviour
         {
             case CameraType.ortho:
                 cam.orthographicSize = 2 * (half / 2);
-                if(cam.orthographicSize > orthoMax)
+                if (cam.orthographicSize > orthoMax)
                 {
                     cam.orthographicSize = orthoMax;
                 }
 
-                if(cam.orthographicSize < orthoMin)
+                if (cam.orthographicSize < orthoMin)
                 {
                     cam.orthographicSize = orthoMin;
                 }
@@ -72,11 +71,11 @@ public class CameraManager : MonoBehaviour
 
             case CameraType.perspective:
                 targetZ = -(2 * (half / 2));
-                if(Mathf.Abs(targetZ) < Mathf.Abs(zMin))
+                if (Mathf.Abs(targetZ) < Mathf.Abs(zMin))
                 {
                     targetZ = zMin;
                 }
-                if(Mathf.Abs(targetZ) > Mathf.Abs(zMax))
+                if (Mathf.Abs(targetZ) > Mathf.Abs(zMax))
                 {
                     targetZ = zMax;
                 }
@@ -88,7 +87,7 @@ public class CameraManager : MonoBehaviour
 
         // add shader controls to camera manager of levels to allow spotlight to appear on  tilemap.
         trackPosition = new Vector3(target.position.x, target.position.y, target.position.z);
-        smooth = Vector3.MoveTowards(smooth, trackPosition,smoothSpeed * Time.deltaTime);
+        smooth = Vector3.MoveTowards(smooth, trackPosition, smoothSpeed * Time.deltaTime);
         Vector4 pos = new Vector4(smooth.x, smooth.y, 0, 0);
         Shader.SetGlobalVector("GlobalSpotlight_Position", pos);
     }

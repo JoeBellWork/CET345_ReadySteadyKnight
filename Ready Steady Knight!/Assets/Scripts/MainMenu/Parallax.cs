@@ -8,7 +8,7 @@ public class Parallax : MonoBehaviour
     private float mapLength, startPos, distance, temp;
 
 
-    
+
     void Start()
     {
         startPos = transform.position.x;

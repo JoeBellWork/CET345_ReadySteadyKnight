@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.Audio;
 using UnityEngine;
 
 public class AudioManagerScript : MonoBehaviour
@@ -15,7 +14,7 @@ public class AudioManagerScript : MonoBehaviour
     // foreach loop assigns varible values for audio control to each  audioSource componant.
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -28,7 +27,7 @@ public class AudioManagerScript : MonoBehaviour
 
 
 
-        foreach(Sounds s in sounds)
+        foreach (Sounds s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;

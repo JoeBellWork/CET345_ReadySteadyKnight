@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
@@ -38,10 +36,10 @@ public class BackgroundMusic : MonoBehaviour
     // if it isnt, either by being stopped or having a clip end, the index increases by 1 and plays the next track in the list. If the index becomes larger than the length of the sountrack, the cycle repeats.
     private void LateUpdate()
     {
-        if(!backgroundMusic.isPlaying)
+        if (!backgroundMusic.isPlaying)
         {
             i += 1;
-            if (i <= tracks.Length-1)
+            if (i <= tracks.Length - 1)
             {
                 backgroundMusic.clip = tracks[i];
 

@@ -14,7 +14,7 @@ public class MySceneManager : MonoBehaviour
     // uses switch bool system to discover what level to move between
     public void RequestLevelOnLoad(SceneType st, string level)
     {
-        if(!waitToLoad)
+        if (!waitToLoad)
         {
             string targetId = "";
 
@@ -44,7 +44,7 @@ public class MySceneManager : MonoBehaviour
         MainScene r = null;
         for (int i = 0; i < mainScenes.Count; i++)
         {
-            if(mainScenes[i].levelId == level)
+            if (mainScenes[i].levelId == level)
             {
                 r = mainScenes[i];
                 break;
@@ -52,7 +52,7 @@ public class MySceneManager : MonoBehaviour
         }
         return r;
     }
-    
+
     // static controls
     public static MySceneManager instance;
     public static MySceneManager GetInstance()
@@ -69,7 +69,7 @@ public class MySceneManager : MonoBehaviour
 
     // enum for scene types to allow specific selection
     public enum SceneType
-    { 
+    {
         main,
         prog
     }

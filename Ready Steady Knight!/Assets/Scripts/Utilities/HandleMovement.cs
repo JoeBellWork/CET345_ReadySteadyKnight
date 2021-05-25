@@ -30,7 +30,7 @@ public class HandleMovement : MonoBehaviour
     void FixedUpdate()
     {
         // continous checks for input
-        if(!states.dontMove)
+        if (!states.dontMove)
         {
             HorizontalMovement();
             Jump();
@@ -42,12 +42,12 @@ public class HandleMovement : MonoBehaviour
         // function allows movement back and forth while not attacking
         actualSpeed = this.maxSpeed;
 
-        if(states.onGround && !states.currentlyAttacking)
+        if (states.onGround && !states.currentlyAttacking)
         {
             rb.AddForce(new Vector2((states.horizontal * actualSpeed) - rb.velocity.x * this.acceleration, 0));
         }
 
-        if(states.horizontal == 0 && states.onGround)
+        if (states.horizontal == 0 && states.onGround)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -56,12 +56,12 @@ public class HandleMovement : MonoBehaviour
     void Jump()
     {
         // jump script that checks if the player wishes to jump, if they can jump and controls velocity and direction
-        if(states.vertical > 0)
-        {            
+        if (states.vertical > 0)
+        {
             if (!justJumped)
-            {                
+            {
                 justJumped = true;
-                
+
                 if (states.onGround)
                 {
                     audioManager.soundPlay("Effect_Jump");
@@ -73,10 +73,10 @@ public class HandleMovement : MonoBehaviour
             }
             else
             {
-                if(canVaribleJump)
-                {                    
+                if (canVaribleJump)
+                {
                     jumpTimer += Time.deltaTime;
-                    if(jumpTimer < this.jumpDuration / 1000)
+                    if (jumpTimer < this.jumpDuration / 1000)
                     {
                         rb.velocity = new Vector3(rb.velocity.x, this.jumpSpeed);
                     }
@@ -99,11 +99,11 @@ public class HandleMovement : MonoBehaviour
     {
         // generate velocity on impact to push player away from heavy kick or to add jump force
         float t = 0;
-        while(t < timer)
+        while (t < timer)
         {
             t += Time.deltaTime;
 
-            rb.AddForce(direction );
+            rb.AddForce(direction);
             yield return null;
         }
     }

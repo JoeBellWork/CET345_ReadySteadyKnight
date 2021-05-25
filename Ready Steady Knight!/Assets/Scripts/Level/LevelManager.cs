@@ -17,6 +17,9 @@ public class LevelManager : MonoBehaviour
     int currentTimer;
     float internalTimer;
 
+    [HideInInspector]
+    public int winner;
+
 
     // instance control
     public static LevelManager instance;
@@ -40,7 +43,7 @@ public class LevelManager : MonoBehaviour
     public void FixedUpdate()
     {
         // player orientation
-        if(charM.players[0].playerStates.transform.position.x < 
+        if (charM.players[0].playerStates.transform.position.x <
             charM.players[1].playerStates.transform.position.x)
         {
             charM.players[0].playerStates.lookRight = true;
@@ -53,8 +56,8 @@ public class LevelManager : MonoBehaviour
         }
     }
     public void Update()
-    {        
-        if(countdown)
+    {
+        if (countdown)
         {
             HandleTurnTimer();
         }
@@ -65,13 +68,13 @@ public class LevelManager : MonoBehaviour
         levelUi.LevelTimer.text = currentTimer.ToString();
         internalTimer += Time.deltaTime;
 
-        if(internalTimer > 1)
+        if (internalTimer > 1)
         {
             currentTimer--;
             internalTimer = 0;
         }
 
-        if(currentTimer <= 0)
+        if (currentTimer <= 0)
         {
             EndTurnFunction(true);
             countdown = false;
@@ -147,14 +150,14 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < charM.players.Count; i++)
         {
-            if(charM.players[i].playerType == PlayerBase.PlayerType.user)
+            if (charM.players[i].playerType == PlayerBase.PlayerType.user)
             {
                 InputHandler ih = charM.players[i].playerStates.gameObject.GetComponent<InputHandler>();
                 ih.playerInput = charM.players[i].inputId;
                 ih.enabled = true;
             }
 
-            if(charM.players[i].playerType == PlayerBase.PlayerType.ai)
+            if (charM.players[i].playerType == PlayerBase.PlayerType.ai)
             {
                 AICharacter ai = charM.players[i].playerStates.gameObject.GetComponent<AICharacter>();
                 ai.enabled = true;
@@ -174,7 +177,7 @@ public class LevelManager : MonoBehaviour
         {
             charM.players[i].playerStates.ResetStateInputs();
 
-            if(charM.players[i].playerType == PlayerBase.PlayerType.user)
+            if (charM.players[i].playerType == PlayerBase.PlayerType.user)
             {
                 charM.players[i].playerStates.GetComponent<InputHandler>().enabled = false;
             }
@@ -190,7 +193,7 @@ public class LevelManager : MonoBehaviour
         countdown = false;
         levelUi.LevelTimer.text = maxTurnTimer.ToString();
 
-        if(timeOut)
+        if (timeOut)
         {
             levelUi.AnnouncerTextLine1.gameObject.SetActive(true);
             levelUi.AnnouncerTextLine1.text = "Out of Time!";
@@ -216,7 +219,7 @@ public class LevelManager : MonoBehaviour
 
         PlayerBase vPlayer = FindWinningPlayer();
 
-        if(vPlayer == null)
+        if (vPlayer == null)
         {
             levelUi.AnnouncerTextLine1.text = "Draw";
             levelUi.AnnouncerTextLine1.color = Color.blue;
@@ -230,9 +233,9 @@ public class LevelManager : MonoBehaviour
         yield return oneSec;
         yield return oneSec;
 
-        if(vPlayer != null)
+        if (vPlayer != null)
         {
-            if(vPlayer.playerStates.health == 100)
+            if (vPlayer.playerStates.health == 100)
             {
                 levelUi.AnnouncerTextLine2.gameObject.SetActive(true);
                 levelUi.AnnouncerTextLine2.text = "Flawless Victory!";
@@ -244,7 +247,7 @@ public class LevelManager : MonoBehaviour
 
         currentTurn++;
         bool matchOver = isMatchOver();
-        if(!matchOver)
+        if (!matchOver)
         {
             StartCoroutine(InitTurn());
         }
@@ -258,20 +261,28 @@ public class LevelManager : MonoBehaviour
 
 
             // returns use to a scene depending on 1 player or 2 and won. If 2 player, returns to intro scene and resents character managers.
-            if(charM.solo)
+            if (charM.solo)
             {
-                if(vPlayer == charM.players[0])
+                if (vPlayer == charM.players[0])
                 {
-                    MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "intro");
+                    MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "winGame");
                 }
                 else
                 {
                     MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "gameOver");
-                }                
+                }
             }
             else
             {
-                MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "intro");
+                MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.main, "winGame");
+                if(vPlayer == charM.players[0])
+                {
+                    winner = 0;
+                }
+                else
+                {
+                    winner = 1;
+                }
                 charM.players[1].playerType = PlayerBase.PlayerType.ai;
                 charM.players[1].playerPrefab = null;
                 charM.players[1].playerStates = null;
@@ -289,7 +300,7 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < charM.players.Count; i++)
         {
-            if(charM.players[i].score >= maxTurns)
+            if (charM.players[i].score >= maxTurns)
             {
                 retVal = true;
                 break;
@@ -304,9 +315,9 @@ public class LevelManager : MonoBehaviour
         PlayerBase retVal = null;
         StateManager targetPlayer = null;
 
-        if(charM.players[0].playerStates.health != charM.players[1].playerStates.health)
+        if (charM.players[0].playerStates.health != charM.players[1].playerStates.health)
         {
-            if(charM.players[0].playerStates.health < charM.players[1].playerStates.health)
+            if (charM.players[0].playerStates.health < charM.players[1].playerStates.health)
             {
                 charM.players[1].score++;
                 targetPlayer = charM.players[1].playerStates;

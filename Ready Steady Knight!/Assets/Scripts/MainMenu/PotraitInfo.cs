@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PotraitInfo : MonoBehaviour 
+public class PotraitInfo : MonoBehaviour
 {
     // a class that holds positional data for character selection
 

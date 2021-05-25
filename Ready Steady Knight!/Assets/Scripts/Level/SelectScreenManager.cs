@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SelectScreenManager : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class SelectScreenManager : MonoBehaviour
     {
         instance = this;
     }
-    
+
 
     void Start()
     {
@@ -55,7 +54,7 @@ public class SelectScreenManager : MonoBehaviour
             potraitPrefabs[i].posY += y;
             charGrid[x, y] = potraitPrefabs[i];
 
-            if(x < maxX - 1)
+            if (x < maxX - 1)
             {
                 x++;
             }
@@ -69,7 +68,7 @@ public class SelectScreenManager : MonoBehaviour
 
     void Update()
     {
-        if(!loadLevel)
+        if (!loadLevel)
         {
             if (Input.GetKeyDown(KeyCode.Escape)) // leave game with escape button
             {
@@ -80,7 +79,7 @@ public class SelectScreenManager : MonoBehaviour
             // allow users to select their fighter using a grouping system
             for (int i = 0; i < plInterfaces.Count; i++)
             {
-                if(i < numberOfPlayers)
+                if (i < numberOfPlayers)
                 {
                     if (Input.GetButtonUp("Fire2" + charManager.players[i].inputId))
                     {
@@ -103,14 +102,14 @@ public class SelectScreenManager : MonoBehaviour
                 }
             }
         }
-        if(bothPlayersSelected)
+        if (bothPlayersSelected)
         {
             StartCoroutine(LoadLevel());
             loadLevel = true;
         }
         else
         {
-            if(charManager.players[0].hasCharacter && charManager.players[1].hasCharacter)
+            if (charManager.players[0].hasCharacter && charManager.players[1].hasCharacter)
             {
                 bothPlayersSelected = true;
             }
@@ -125,11 +124,11 @@ public class SelectScreenManager : MonoBehaviour
          */
 
         float verticle = Input.GetAxis("Vertical" + playerId);
-        if(verticle != 0)
+        if (verticle != 0)
         {
-            if(!pl.hasInputOnce)
+            if (!pl.hasInputOnce)
             {
-                if(verticle > 0)
+                if (verticle > 0)
                 {
                     pl.activeY = (pl.activeY > 0) ? pl.activeY - 1 : maxY - 1;
                 }
@@ -142,13 +141,14 @@ public class SelectScreenManager : MonoBehaviour
         }
 
         float horizontal = Input.GetAxis("Horizontal" + playerId);
-        if(horizontal != 0)
+        if (horizontal != 0)
         {
-            if(!pl.hasInputOnce)
+            if (!pl.hasInputOnce)
             {
-                if(horizontal > 0)
+                if (horizontal > 0)
                 {
-                    pl.activeX = (pl.activeX > 0) ? pl.activeX - 1 : maxX - 1;                }
+                    pl.activeX = (pl.activeX > 0) ? pl.activeX - 1 : maxX - 1;
+                }
                 else
                 {
                     pl.activeX = (pl.activeX < maxX - 1) ? pl.activeX + 1 : 0;
@@ -158,15 +158,15 @@ public class SelectScreenManager : MonoBehaviour
             }
         }
 
-        if(verticle == 0 && horizontal == 0)
+        if (verticle == 0 && horizontal == 0)
         {
             pl.hasInputOnce = false;
         }
 
-        if(pl.hasInputOnce)
+        if (pl.hasInputOnce)
         {
             pl.timerToReset += Time.deltaTime;
-            if(pl.timerToReset > 0.8f)
+            if (pl.timerToReset > 0.8f)
             {
                 pl.hasInputOnce = false;
                 pl.timerToReset = 0;
@@ -174,7 +174,7 @@ public class SelectScreenManager : MonoBehaviour
         }
         #endregion
         // space bar to select character
-        if(Input.GetButtonUp("Fire1" + playerId))
+        if (Input.GetButtonUp("Fire1" + playerId))
         {
             audioManager.soundPlay("Effect_Hit");
             // characterReact
@@ -190,11 +190,11 @@ public class SelectScreenManager : MonoBehaviour
     {
         audioManager.soundPlay("Effect_Win");
         // AI get random character prefab
-        for(int i = 0; i < charManager.players.Count; i++)
+        for (int i = 0; i < charManager.players.Count; i++)
         {
-            if(charManager.players[i].playerType == PlayerBase.PlayerType.ai)
+            if (charManager.players[i].playerType == PlayerBase.PlayerType.ai)
             {
-                if(charManager.players[i].playerPrefab == null)
+                if (charManager.players[i].playerPrefab == null)
                 {
                     int ranValue = Random.Range(0, potraitPrefabs.Length);
                     charManager.players[i].playerPrefab =
@@ -207,7 +207,7 @@ public class SelectScreenManager : MonoBehaviour
 
         // system to randomise between level 1 and 2 for fight level.
         i = Random.Range(0, 2);
-        if(i == 1)
+        if (i == 1)
         {
             MySceneManager.GetInstance().RequestLevelOnLoad(MySceneManager.SceneType.prog, "level_1");
         }
@@ -239,9 +239,9 @@ public class SelectScreenManager : MonoBehaviour
     // function for setting which fighter object is instanciated into scene to display selected fighter
     void HandleCharacterPreview(PlayerInterfaces pl)
     {
-        if(pl.previewPotrait != pl.activePotrait)
+        if (pl.previewPotrait != pl.activePotrait)
         {
-            if(pl.createdCharacter != null)
+            if (pl.createdCharacter != null)
             {
                 Destroy(pl.createdCharacter);
             }
@@ -253,7 +253,7 @@ public class SelectScreenManager : MonoBehaviour
             pl.createdCharacter = go;
             pl.previewPotrait = pl.activePotrait;
 
-            if(!string.Equals(pl.playerBase.playerId, charManager.players[0].playerId))
+            if (!string.Equals(pl.playerBase.playerId, charManager.players[0].playerId))
             {
                 pl.createdCharacter.GetComponent<StateManager>().lookRight = false;
             }

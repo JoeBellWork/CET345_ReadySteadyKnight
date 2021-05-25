@@ -15,16 +15,16 @@ public class DoDamage : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // on colision with collision zones, deal damage to player, play sounds and change health.
-        if(collision.GetComponentInParent<StateManager>())
+        if (collision.GetComponentInParent<StateManager>())
         {
             StateManager oState = collision.GetComponentInParent<StateManager>();
-            if(oState != states)
+            if (oState != states)
             {
-                if(!oState.currentlyAttacking)
+                if (!oState.currentlyAttacking)
                 {
                     audioManager.soundPlay("Effect_Hit");
                     oState.TakeDamage(10, damageType);
-                }                
+                }
             }
         }
     }

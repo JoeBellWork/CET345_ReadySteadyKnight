@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HandleDamageColliders : MonoBehaviour
@@ -8,7 +7,7 @@ public class HandleDamageColliders : MonoBehaviour
     public GameObject[] damageCollidersRight;
 
     public enum DamageType
-    { 
+    {
         light,
         heavy
     }
@@ -29,7 +28,7 @@ public class HandleDamageColliders : MonoBehaviour
 
     public void OpenCollider(DCtype type, float delay, DamageType damageType)
     {
-        if(!states.lookRight)
+        if (!states.lookRight)
         {
             switch (type)
             {

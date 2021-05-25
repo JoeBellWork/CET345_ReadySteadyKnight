@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
@@ -23,9 +22,9 @@ public class CharacterManager : MonoBehaviour
     {
         CharacterBase retVal = null;
 
-        for(int i = 0; i < characterList.Count; i++)
+        for (int i = 0; i < characterList.Count; i++)
         {
-            if(string.Equals(characterList[i].charId,id))
+            if (string.Equals(characterList[i].charId, id))
             {
                 retVal = characterList[i];
                 break;
@@ -41,7 +40,7 @@ public class CharacterManager : MonoBehaviour
         PlayerBase retVal = null;
         for (int i = 0; i < players.Count; i++)
         {
-            if(players[i].playerStates == states)
+            if (players[i].playerStates == states)
             {
                 retVal = players[i];
                 break;
@@ -56,7 +55,7 @@ public class CharacterManager : MonoBehaviour
         PlayerBase retVal = null;
         for (int i = 0; i < players.Count; i++)
         {
-            if(players[i] != pl)
+            if (players[i] != pl)
             {
                 retVal = players[i];
                 break;
@@ -71,7 +70,7 @@ public class CharacterManager : MonoBehaviour
         int retVal = 0;
         for (int i = 0; i < characterList.Count; i++)
         {
-            if(characterList[i].prefab == prefab)
+            if (characterList[i].prefab == prefab)
             {
                 retVal = i;
                 break;

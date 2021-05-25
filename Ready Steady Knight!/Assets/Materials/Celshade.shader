@@ -1,41 +1,60 @@
-﻿Shader "Unlit/Celshade"
+﻿Shader "Custom/Celshade"
 {
-    Properties
-    {
-        _MainTex("Main Texture", 2D) = "White"
-        _Color("Colour", Color) = (1,1,1,1)
+    Properties{
+        _MainTex("Main Texture", 2D) = "White"{}
+        _Color("Colour", Color) = (1, 1, 1, 1)
     }
 
-        SubShader
-    {
-        Cull Off
-        Pass
-        {
-            CGPROGRAM
-            #pragma vertext vertexFunc
-            #pragma fragment fragmentFunc
-            #include "UnityCG.cginc"
+        SubShader{
+            Tags{"Queue" = "Transparent"}
+            ZTest Off
 
-            sampler2D _MainTex
-            struct v2f
+            Cull Off
+            Blend One OneMinusSrcAlpha
+            Pass
             {
-                float4 pos : SV_POSITION;
-                half2 uv : TEXCOORD0;
-            };
+                CGPROGRAM
+                #pragma vertex vertexFunc
+                #pragma fragment fragmentFunc
+                #include "UnityCG.cginc"
 
-            v2f vertexFunc(appdata_base v)
-            {
-                v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.texCoord
+                sampler2D _MainTex;
+                
+
+                struct v2f {
+                    float4 pos : SV_POSITION;
+                    half2 uv : TEXCOORD0;
+                };
+
+                v2f vertexFunc(appdata_base v)
+                {
+                    v2f o;
+                    o.pos = UnityObjectToClipPos(v.vertex);
+                    o.uv = v.texcoord;
                     return o;
+                }
+                fixed4 _Color;
+                float4 _MainTex_TexelSize;
+
+                fixed4 fragmentFunc(v2f i) : COLOR
+                {
+                    half4 c = tex2D(_MainTex, i.uv);
+                    c.rgb *= c.a;
+                    half4 outlineC = _Color;
+                    outlineC.a *= ceil(c.a);
+                    outlineC.rgb *= outlineC.a;
+
+                    fixed UpAlpha = tex2D(_MainTex, i.uv + fixed2(0, _MainTex_TexelSize.y)).a;
+                    fixed DownAlpha = tex2D(_MainTex, i.uv - fixed2(0, _MainTex_TexelSize.y)).a;
+                    fixed LeftAlpha = tex2D(_MainTex, i.uv + fixed2(_MainTex_TexelSize.x, 0)).a;
+                    fixed RightAlpha = tex2D(_MainTex, i.uv - fixed2(_MainTex_TexelSize.x, 0)).a;
+
+                    return lerp(outlineC, c, ceil(UpAlpha * DownAlpha * LeftAlpha * RightAlpha));
+                }
+
+
+                ENDCG
             }
-            fixed4 _Color;
-            float4 _MainTex_TexelSize;
-
-
-            ENDCD
         }
-    }
 }
 

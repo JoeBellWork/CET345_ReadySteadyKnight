@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,20 +44,20 @@ public class StateManager : MonoBehaviour
         sRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    
+
     public void FixedUpdate()
     {
         sRenderer.flipX = lookRight;
         onGround = isOnGround();
 
-        if(healthSlider != null)
+        if (healthSlider != null)
         {
             healthSlider.value = health * 0.01f;
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
-            if(LevelManager.getInstance().countdown)
+            if (LevelManager.getInstance().countdown)
             {
                 LevelManager.getInstance().EndTurnFunction();
                 handleAnim.anim.Play("Dead");
@@ -104,7 +103,7 @@ public class StateManager : MonoBehaviour
     // damage function called by other scripts that registers damage typ for force knock back, ammount of damage taken and imortality.
     public void TakeDamage(int damage, HandleDamageColliders.DamageType damageType)
     {
-        if(!gettingHit)
+        if (!gettingHit)
         {
             switch (damageType)
             {
@@ -112,7 +111,7 @@ public class StateManager : MonoBehaviour
                     StartCoroutine(CloseImmortality(0.3f));
                     break;
                 case HandleDamageColliders.DamageType.heavy:
-                    handleMovement.AddVelocityOnCharacter(((!lookRight) ? Vector3.right * 1 : Vector3.right * -1) + Vector3.up,0.25f);
+                    handleMovement.AddVelocityOnCharacter(((!lookRight) ? Vector3.right * 1 : Vector3.right * -1) + Vector3.up, 0.25f);
                     StartCoroutine(CloseImmortality(1));
                     break;
             }

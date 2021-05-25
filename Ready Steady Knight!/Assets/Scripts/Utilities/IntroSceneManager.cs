@@ -20,7 +20,7 @@ public class IntroSceneManager : MonoBehaviour
 
     public void Update()
     {
-        if(audioManager == null)
+        if (audioManager == null)
         {
             audioManager = AudioManagerScript.getInstance();
         }
@@ -37,14 +37,14 @@ public class IntroSceneManager : MonoBehaviour
         {
             //flicker start text for asthetic and feedback
             timer += Time.deltaTime;
-            if(timer > 0.6f)
+            if (timer > 0.6f)
             {
                 timer = 0;
                 startText.SetActive(!startText.activeInHierarchy);
             }
 
             //press space to start functionality. Closes initial text and offers player 1/2 options.
-            if(Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
             {
                 audioManager.soundPlay("Effect_Win");
                 initialise = true;
@@ -54,17 +54,17 @@ public class IntroSceneManager : MonoBehaviour
         }
         else
         {
-            if(!loadingLevel) // while game isnt loading a new level
+            if (!loadingLevel) // while game isnt loading a new level
             {
                 //shows which option is selected
                 menuOptions[activeElement].selected = true;
 
                 // change which menu option is selected
-                if(Input.GetKeyUp(KeyCode.UpArrow))
+                if (Input.GetKeyUp(KeyCode.UpArrow))
                 {
                     audioManager.soundPlay("Effect_Click");
                     menuOptions[activeElement].selected = false;
-                    if(activeElement > 0)
+                    if (activeElement > 0)
                     {
                         activeElement--;
                     }
@@ -74,11 +74,11 @@ public class IntroSceneManager : MonoBehaviour
                     }
                 }
 
-                if(Input.GetKeyUp(KeyCode.DownArrow))
+                if (Input.GetKeyUp(KeyCode.DownArrow))
                 {
                     audioManager.soundPlay("Effect_Click");
                     menuOptions[activeElement].selected = false;
-                    if(activeElement < menuOptions.Length - 1)
+                    if (activeElement < menuOptions.Length - 1)
                     {
                         activeElement++;
                     }
@@ -89,7 +89,7 @@ public class IntroSceneManager : MonoBehaviour
                 }
 
                 // if space button hit again
-                if(Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
+                if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
                 {
                     audioManager.soundPlay("Effect_Win");
                     //load next level
@@ -104,7 +104,7 @@ public class IntroSceneManager : MonoBehaviour
     // game mode to determin if second fighter is ai or second player input
     void HandleSelectionOption()
     {
-        switch(activeElement)
+        switch (activeElement)
         {
             case 0:
                 CharacterManager.getInstance().numberOfUsers = 1;

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HandleAnimations : MonoBehaviour
@@ -28,7 +27,7 @@ public class HandleAnimations : MonoBehaviour
         float movement = Mathf.Abs(states.horizontal);
         anim.SetFloat("Movement", movement);
 
-        if(states.vertical < 0)
+        if (states.vertical < 0)
         {
             states.crouch = true;
         }
@@ -41,19 +40,19 @@ public class HandleAnimations : MonoBehaviour
 
     void HandleAttacks()
     {
-        if(states.canAttack)
+        if (states.canAttack)
         {
-            if(states.attack1)
+            if (states.attack1)
             {
                 attacks[0].attack = true;
                 attacks[0].attackTimer = 0;
                 attacks[0].timesPressed++;
             }
 
-            if(attacks[0].attack)
+            if (attacks[0].attack)
             {
                 attacks[0].attackTimer += Time.deltaTime;
-                if(attacks[0].attackTimer > attackRate || attacks[0].timesPressed >= 3)
+                if (attacks[0].attackTimer > attackRate || attacks[0].timesPressed >= 3)
                 {
                     attacks[0].attackTimer = 0;
                     attacks[0].attack = false;
@@ -61,7 +60,7 @@ public class HandleAnimations : MonoBehaviour
                 }
             }
 
-            if(states.attack2)
+            if (states.attack2)
             {
                 attacks[1].attack = true;
                 attacks[1].attackTimer = 0;
@@ -84,7 +83,7 @@ public class HandleAnimations : MonoBehaviour
     }
 
     public void JumpAnim()
-    {        
+    {
         anim.SetBool("Attack1", false);
         anim.SetBool("Attack2", false);
         anim.SetBool("Jump", true);
