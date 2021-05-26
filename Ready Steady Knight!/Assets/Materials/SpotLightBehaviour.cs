@@ -10,6 +10,7 @@ public class SpotLightBehaviour : MonoBehaviour
     Vector3 trackPosition, smooth;
 
     public float radius, softness, smoothSpeed, scale;
+    public ParticleSystem explosion;
     // public control varibles of spotlight size, blur and speed
 
     // Start is called before the first frame update
@@ -24,6 +25,10 @@ public class SpotLightBehaviour : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             radius += scale * Time.deltaTime;
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            explosion.Play();
         }
 
         if (Input.GetKey(KeyCode.DownArrow))

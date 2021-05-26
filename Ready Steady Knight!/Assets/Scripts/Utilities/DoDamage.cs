@@ -23,6 +23,7 @@ public class DoDamage : MonoBehaviour
                 if (!oState.currentlyAttacking)
                 {
                     audioManager.soundPlay("Effect_Hit");
+                    
                     oState.TakeDamage(10, damageType);
                 }
             }

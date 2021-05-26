@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
+
+    private ParticleExplosion particleVar;
     // fighter varibles from health, input controls through bool switches, heigt tracker and direction facing.
     public int health = 100;
     public float horizontal;
@@ -42,6 +44,7 @@ public class StateManager : MonoBehaviour
         handleAnim = GetComponent<HandleAnimations>();
         handleMovement = GetComponent<HandleMovement>();
         sRenderer = GetComponentInChildren<SpriteRenderer>();
+        particleVar = GetComponent<ParticleExplosion>();
     }
 
 
@@ -117,6 +120,7 @@ public class StateManager : MonoBehaviour
             }
 
             health -= damage;
+            particleVar.ExplodePlay();
             gettingHit = true;
         }
     }
