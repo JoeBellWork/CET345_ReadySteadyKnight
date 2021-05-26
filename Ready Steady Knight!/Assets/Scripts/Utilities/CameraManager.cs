@@ -83,7 +83,7 @@ public class CameraManager : MonoBehaviour
                 cam.transform.localPosition = new Vector3(0, 0.5f, targetZ);
                 break;
         }
-        cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, middlePoint, Time.deltaTime * 5);
+        cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, middlePoint, Time.deltaTime * 10);
 
         // add shader controls to camera manager of levels to allow spotlight to appear on  tilemap.
         trackPosition = new Vector3(target.position.x, target.position.y, target.position.z);
